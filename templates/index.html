@@ -277,8 +277,8 @@
 				<div class="box bg-style">
 					<h3>Latest Mars News</h3>
 					<hr class="new1">
-					<h6>{{mars.news_title}}</h6>
-					<p>{{mars.news_para}}</p>
+					<h6>{{mars.title}}</h6>
+					<p>{{mars.Paragraph}}</p>
 				</div>
 			</div>
 			<br>
@@ -290,7 +290,7 @@
 				<div class="box bg-style2">
 					<h3>Featured Mars Image</h3>
 					<hr class="new1">
-					<img src="{{mars.featured_image_url}}" alt="Featured Mars Image" id="featured-image">
+					<img src="{{mars.image}}" alt="Featured Mars Image" id="featured-image">
 				</div>
 			</div>
 			<br>
@@ -299,7 +299,7 @@
 				<div class="text-white bg-style sty">
 					<h3>Mars Facts</h3>
 					<hr class="new1">
-					{{mars.mars_facts|safe}}
+					{{mars.facts|safe}}
 				</div>
 			</div>
 		</div>
@@ -315,12 +315,12 @@
 			</div>
 			
 			<div class="row">
-				{% for item in mars.hemispheres_info %}
+				{% for item in mars.hemispheres %}
 				<div class="col-md-6">
 					<br>
 					<div class="box bg-style2">
 						<div class="col-md-6">
-							<img class="card-img-top hem-pics" src="{{ item.img_url }}" />
+							<img class="card-img-top hem-pics" src="{{ item.url }}" />
 							<div class="card-body">
 								<p class="card-text">{{item.title}}</p>
 							</div>
