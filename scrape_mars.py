@@ -7,26 +7,18 @@ import pandas as pd
 executable_path = {'executable_path': ChromeDriverManager().install()}
 
 def scrape():
-    try:  
-        browser = Browser('chrome', **executable_path, headless=False)
-        title, paragraph = news(browser)
-        mars = {
-            'title': title,
-            'paragraph': paragraph,
-            'image': get_image(browser),
-            'facts': facts(),
-            'hemispheres': hemi(browser)
-        }
-        return mars
-    except TimeoutError:
-                mars = {
-                            'title': "title",
-                            'paragraph': "paragraph",
-                            'image': "get_image(browser)",
-                            'facts': "facts()",
-                            'hemispheres': "hemi(browser)"
-                        }
-                return mars
+
+    browser = Browser('chrome', **executable_path, headless=False)
+    title, paragraph = news(browser)
+    mars = {
+        'title': title,
+        'paragraph': paragraph,
+        'image': get_image(browser),
+        'facts': facts(),
+        'hemispheres': hemi(browser)
+    }
+    return mars
+    
 
 # Visit Mars news URL page 
 def news(browser):
@@ -50,9 +42,7 @@ def get_image(browser):
 # Visit the Mars Facts webpage
 def facts():
     facts_webpg = 'https://space-facts.com/mars/'
-    browser.visit(facts_webpg)
-    html = browser.html
-    table = pd.read_html(html)
+    table = pd.read_html(facts_webpg)
     facts_df = table[0]
     facts_df.columns = ['Description', 'Value']
     facts_df['Description'] = facts_df['Description'].str.replace(':','')
@@ -63,7 +53,6 @@ def hemi(browser):
     USGS_url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(USGS_url)
     links = browser.find_by_css('a.itemLink h3')
-    browser.back()
     hemispheres = []
     for i in range(len(links)):
         hemisphere = {}
